@@ -8,15 +8,19 @@ function App() {
   useEffect(() => {
     dictAPI()
   }, [])
+
   const [meanings, setMeanings] = useState([])
 
   const dictAPI = async () => {
-    const { data } = await axios.get(
-      'https://api.dictionaryapi.dev/api/v2/entries/en/mother'
-    )
-    setMeanings(data)
+    try {
+      const { data } = await axios.get(
+        'https://api.dictionaryapi.dev/api/v2/entries/en/mother'
+      )
+      setMeanings(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
-  console.log(meanings)
 
   return (
     <div
