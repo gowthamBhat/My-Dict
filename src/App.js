@@ -3,21 +3,24 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Container } from '@material-ui/core'
 import Header from './components/Header/Header'
+import Definitions from './components/Definitions/Definitions.jsx'
 
 function App() {
+  const [word, setWord] = useState('') //word that is typed in search text box
+  const [wordMeanings, setMeanings] = useState([]) //meaning of word we get after searching for specific word through api call
+  const [category, setcategory] = useState('en') //language option to search
+
   useEffect(() => {
     dictAPI()
-  }, [])
-  const [word, setWord] = useState('') //word that is typed in search text box
-  const [meanings, setMeanings] = useState([]) //meaning of word we get after searching for specific word through api call
-  const [category, setcategory] = useState('en') //language option to search
+  }, [category, word])
 
   const dictAPI = async () => {
     //method to get word meaning from api
     try {
       const { data } = await axios.get(
-        'https://api.dictionaryapi.dev/api/v2/entries/en/mother'
+        `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`
       )
+
       setMeanings(data) //setting the state after getting the data from specific endpoint
     } catch (error) {
       console.log(error)
@@ -41,6 +44,14 @@ function App() {
           word={word}
           setTheWord={setWord}
         />
+        {/* if meaning exists then only render the defination ui */}
+        {wordMeanings && (
+          <Definitions
+            word={word}
+            wordMeanings={wordMeanings}
+            category={category}
+          />
+        )}
       </Container>
     </div>
   )

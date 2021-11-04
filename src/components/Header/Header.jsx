@@ -9,6 +9,7 @@ import './Header.css'
 import categories from '../../data/Category'
 
 function Header({ langugeCategory, languageSet, word, setTheWord }) {
+  //material ui function that provide dark mode feature
   const darkTheme = createTheme({
     palette: {
       primary: {
@@ -17,6 +18,11 @@ function Header({ langugeCategory, languageSet, word, setTheWord }) {
       type: 'dark'
     }
   })
+  const onLanguageChangeHandle = (e) => {
+    //on Changing of language search field should be cleared
+    languageSet(e.target.value)
+    setTheWord('')
+  }
   return (
     <div className="header">
       <span className="title">{word ? word : 'Dict SEARCH'}</span>
@@ -42,7 +48,7 @@ function Header({ langugeCategory, languageSet, word, setTheWord }) {
             select
             label="Language"
             value={langugeCategory}
-            onChange={(e) => languageSet(e.target.value)}
+            onChange={onLanguageChangeHandle}
             // {this will set the language}
           >
             {/* looping over language categories */}
