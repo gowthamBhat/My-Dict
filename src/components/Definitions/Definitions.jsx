@@ -3,6 +3,15 @@ import './Definitions.css'
 function Definitions({ word, wordMeanings, category }) {
   return (
     <div className="meanings">
+      {wordMeanings[0] && word && category === 'en' && (
+        <audio
+          src={wordMeanings[0].phonetics && wordMeanings[0].phonetics[0].audio}
+          controls
+        >
+          Your browser does not support the audio tag.
+        </audio>
+      )}
+
       {word === '' ? (
         <p className="fallback-definitionBox-text">Type something to Search</p>
       ) : (
