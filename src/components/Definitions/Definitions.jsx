@@ -1,6 +1,6 @@
 import React from 'react'
 import './Definitions.css'
-function Definitions({ word, wordMeanings, category }) {
+function Definitions({ word, wordMeanings, category, lightModeState }) {
   return (
     <div className="meanings">
       {wordMeanings[0] && word && category === 'en' && (
@@ -21,8 +21,8 @@ function Definitions({ word, wordMeanings, category }) {
               <div
                 className="singleMeaning"
                 style={{
-                  backgroundColor: 'white',
-                  color: 'black'
+                  backgroundColor: lightModeState ? '#3b5360' : 'white',
+                  color: lightModeState ? 'white' : 'black'
                 }}
               >
                 <b>{def.definition}</b>

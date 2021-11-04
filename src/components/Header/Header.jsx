@@ -8,14 +8,20 @@ import React from 'react'
 import './Header.css'
 import categories from '../../data/Category'
 
-function Header({ langugeCategory, languageSet, word, setTheWord }) {
+function Header({
+  langugeCategory,
+  languageSet,
+  word,
+  setTheWord,
+  lightModeState
+}) {
   //material ui function that provide dark mode feature
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: '#fff'
+        main: lightModeState ? '#000' : '#fff'
       },
-      type: 'dark'
+      type: lightModeState ? 'light' : 'dark'
     }
   })
   const onLanguageChangeHandle = (e) => {
@@ -25,7 +31,12 @@ function Header({ langugeCategory, languageSet, word, setTheWord }) {
   }
   return (
     <div className="header">
-      <span className="title">{word ? word : 'Dict SEARCH'}</span>
+      <span
+        className="title"
+        style={{ color: lightModeState ? 'black' : 'white' }}
+      >
+        {word ? word : 'Dict SEARCH'}
+      </span>
       <div className="input">
         {/* theme provider will provide dark theme feature in material ui */}
 
